@@ -1,4 +1,10 @@
 <?php
+
+// Add this to the top of your index.php or inside your controller methods
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
 /**
  * CodeIgniter
  *
