@@ -9,14 +9,14 @@ import Register from './pages/Register'
 import Profile from './pages/Profile'
 import PrivateRoute from './components/PrivateRoute'
 import { AuthProvider } from './context/AuthContext'
+import { UserProvider } from './context/UserProvider'
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path='/' element={<Layout />}>
     <Route index element={<Home />} />
     <Route path='sign-in' element={<SignIn />} />
     <Route path='register' element={<Register />} />
-    {/* <Route path='profile' element={<PrivateRoute><Profile /></PrivateRoute>} /> make route private */}
-    <Route path='profile/:id' element={<Profile />} /> {/* make route private */}
+    <Route path='profile/:id' element={<Profile />} />
   </Route>
 ))
 
@@ -29,8 +29,8 @@ function App() {
 // wrap authprovider
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    {/* <AuthProvider> */}
+    <UserProvider>
       <App />
-    {/* </AuthProvider> */}
+      </UserProvider>
   </React.StrictMode>,
 )

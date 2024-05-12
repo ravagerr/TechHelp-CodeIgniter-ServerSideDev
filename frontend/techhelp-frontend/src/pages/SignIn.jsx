@@ -1,11 +1,12 @@
 import React, { useState } from "react"
+import { useUser } from "../context/UserProvider"
 
-export default function Register() {
+export default function SignIn() {
     // State to hold the form data
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
-    // Handle form field changes
+    const { setUser } = useUser() 
+    
     const handleChange = (event) => {
         const { name, value } = event.target
         if (name === "email") {
@@ -15,11 +16,9 @@ export default function Register() {
         }
     }
 
-    // Handle form submission
     const handleLogin = (event) => {
-        event.preventDefault() // Prevent the form from being submitted in the traditional way
+        event.preventDefault()
 
-        // Send the POST request with the email and password to the backend
         fetch('http://localhost:6900/index.php/usercontroller/login', {
             method: 'POST',
             headers: {
@@ -31,8 +30,8 @@ export default function Register() {
         .then(response => response.json())
         .then(data => {
             if (data.status === 'success') {
+                setUser({ id: data.userID })
                 alert('Login successful! User ID: ' + data.userID)
-                // Handle additional tasks after successful login if needed
             } else {
                 alert('Login failed: ' + data.message)
             }
