@@ -15,7 +15,8 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route index element={<Home />} />
     <Route path='sign-in' element={<SignIn />} />
     <Route path='register' element={<Register />} />
-    <Route path='profile' element={<PrivateRoute><Profile /></PrivateRoute>} /> {/* make route private */}
+    {/* <Route path='profile' element={<PrivateRoute><Profile /></PrivateRoute>} /> make route private */}
+    <Route path='profile/:id' element={<Profile />} /> {/* make route private */}
   </Route>
 ))
 
@@ -28,8 +29,8 @@ function App() {
 // wrap authprovider
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <AuthProvider>
+    {/* <AuthProvider> */}
       <App />
-    </AuthProvider>
+    {/* </AuthProvider> */}
   </React.StrictMode>,
 )
