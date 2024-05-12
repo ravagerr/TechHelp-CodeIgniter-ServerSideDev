@@ -67,6 +67,20 @@ class UserController extends CI_Controller {
         }
     }
 
+    public function checkSession() {
+        $userId = $this->session->userdata('user_id');
+        log_message('debug', 'User ID: ' . $userId);
+    
+        if ($userId > 0) {
+            $this->output->set_status_header(200);
+        } else {
+            $this->output->set_status_header(401);
+        }
+    
+        // Always return the userId in a JSON format
+        $this->output->set_output(json_encode(["userID" => $userId]));
+    }
+
     public function login() {
         $postData = json_decode(file_get_contents('php://input'), true);
         $email = $postData['email'];
@@ -75,7 +89,7 @@ class UserController extends CI_Controller {
         $user = $this->UserModel->verifyUser($email, $password);
         if ($user) {
             $this->load->library('session');
-            $this->session->set_userdata('logged_in', true);
+          //  $this->session->set_userdata('logged_in', true);
             $this->session->set_userdata('user_id', $user->UserID);
             $this->session->set_userdata('email', $user->Email);
     

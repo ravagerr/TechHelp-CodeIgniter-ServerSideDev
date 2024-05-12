@@ -43,6 +43,22 @@ export default function Register() {
         })
     }
 
+    function checkSession() {
+        fetch('http://localhost:6900/index.php/usercontroller/checkSession', {
+            credentials: 'include',
+        }).then(res => {
+            if (res.ok) {
+                res.json().then(data => {
+                    console.log('Response data:', data);
+                });
+            } else {
+                console.log('Failed to fetch session data. Status:', res.status);
+            }
+        }).catch(error => {
+            console.log('Error fetching data:', error);
+        });
+    }
+
     return (
         <div>
             <h1>Login</h1>
@@ -57,6 +73,7 @@ export default function Register() {
                 </label><br />
                 <button type="submit">Log In</button>
             </form>
+            <button onClick={checkSession}>Check Session</button>
         </div>
     )
 }
