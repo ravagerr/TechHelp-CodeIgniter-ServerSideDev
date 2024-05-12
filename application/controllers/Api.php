@@ -8,7 +8,6 @@ class Api extends CI_Controller {
     }
 
     public function get_data() {
-        // Your code here
-        echo json_encode(array("message" => "Hey bro!"));
+        echo json_encode(array("message" => "It works!"));
     }
 }

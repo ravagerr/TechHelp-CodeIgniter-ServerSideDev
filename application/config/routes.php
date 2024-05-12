@@ -53,3 +53,5 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['api/get_data'] = 'api/get_data';
+$route['api/register'] = 'usercontroller/register';
+$route['api/login'] = 'usercontroller/login';
