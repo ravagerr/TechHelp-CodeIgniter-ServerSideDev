@@ -19,6 +19,16 @@ class UserController extends CI_Controller {
             exit();
         }
     }
+    
+    public function getUser($userID) {
+        $user = $this->UserModel->getUserByID($userID);
+        if ($user) {
+            echo json_encode($user);
+        } else {
+            echo 'User not found';
+        }
+    }
+    
 
     public function register() {
         // parse json input
