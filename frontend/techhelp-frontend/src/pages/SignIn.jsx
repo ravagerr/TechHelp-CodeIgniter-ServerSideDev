@@ -6,7 +6,7 @@ export default function SignIn() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const { setUser } = useUser() 
-    
+
     const handleChange = (event) => {
         const { name, value } = event.target
         if (name === "email") {
@@ -59,20 +59,14 @@ export default function SignIn() {
     }
 
     return (
-        <div>
-            <h1>Login</h1>
-            <form onSubmit={handleLogin}>
-                <label>
-                    Email:
-                    <input type="email" name="email" value={email} onChange={handleChange} required />
-                </label><br />
-                <label>
-                    Password:
-                    <input type="password" name="password" value={password} onChange={handleChange} required />
-                </label><br />
+        <div className="form-center-container">
+            <form onSubmit={handleLogin} className="auth-form">
+            <h1>Sign in to TechHelp Community</h1>
+                    <input type="email" name="email" value={email} placeholder="Email" onChange={handleChange} required /> <br />
+                    <input type="password" name="password" value={password} placeholder="Password" onChange={handleChange} required /> <br />
                 <button type="submit">Log In</button>
             </form>
-            <button onClick={checkSession}>Check Session</button>
+            {/* <button onClick={checkSession}>Check Session</button> */}
         </div>
     )
 }
