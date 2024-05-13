@@ -14,11 +14,9 @@ export default function Header() {
                     <Link to={'/browse'} className='nav-link'>Browse</Link>
                     <Link to={'/'} className='nav-link'>Search</Link>
                     {user ? (
-                        <button>
-                            <Link to={`/profile/${user.id}`}>Profile</Link>
-                        </button>
+                            <Link to={`/profile/${user.id}`} className='nav-link button-user'>Profile</Link>
                     ) : (
-                        <p>Not logged in</p>
+                        <Link to='sign-in' className='nav-link'>Sign in</Link>
                     )}
                 </div>
             </nav>

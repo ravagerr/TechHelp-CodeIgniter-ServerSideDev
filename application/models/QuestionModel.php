@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class QuestionModel extends CI_Model {
 
     public function __construct() {
-        
+
     }
 
     // Get a single question by slug
@@ -16,7 +16,13 @@ class QuestionModel extends CI_Model {
 
     // Get all questions
     public function getAllQuestions() {
-        $query = $this->db->get('Questions');
+        $this->db->select('Questions.*, Tags.TagName, Users.Username');
+        $this->db->from('Questions');
+        $this->db->join('QuestionTags', 'Questions.QuestionSlug = QuestionTags.QuestionSlug', 'left');
+        $this->db->join('Tags', 'QuestionTags.TagID = Tags.TagID', 'left');
+        $this->db->join('Users', 'Questions.UserID = Users.UserID', 'left'); // Join with Users table to get Username
+        $this->db->order_by('Questions.PostDate', 'DESC');
+        $query = $this->db->get();
         return $query->result_array(); // returns an array of objects
     }
 

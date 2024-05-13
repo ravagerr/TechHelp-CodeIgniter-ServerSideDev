@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Browse() {
     const [questions, setQuestions] = useState([])
@@ -13,6 +14,7 @@ export default function Browse() {
                     throw new Error('Network response was not ok: ' + response.statusText)
                 }
                 const data = await response.json()
+                console.log(data)
                 setQuestions(data)
                 setLoading(false)
             } catch (error) {
@@ -36,6 +38,7 @@ export default function Browse() {
                         <li key={question.QuestionSlug}>
                             <h2>{question.Title}</h2>
                             <p>{question.Body}</p>
+                            <p>in {question.TagName} by <Link to={`/profile/${question.UserID}`}>{question.Username}</Link></p>
                             <small>Posted: {new Date(question.PostDate).toLocaleDateString()}</small>
                         </li>
                     ))}

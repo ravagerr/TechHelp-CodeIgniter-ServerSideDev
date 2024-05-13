@@ -1,6 +1,7 @@
 body {
     margin: 0;
     height: 100%;
+    font-family: "Inter", sans-serif;
 }
 
 /* Main container */
@@ -20,6 +21,7 @@ header {
 nav {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin: 0 auto;
     max-width: 1200px;
     padding: 0 0.5em;
@@ -27,6 +29,7 @@ nav {
 
 .nav-right {
     display: flex;
+    align-items: center;
     gap: 1em;
 }
 
@@ -38,6 +41,10 @@ nav {
 .nav-index {
     font-size: 1.5em;
     font-weight: bold;
+}
+
+.button-user {
+    display: inline-block;
 }
 
 /* Footer styles */
