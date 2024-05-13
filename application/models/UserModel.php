@@ -7,9 +7,9 @@ class UserModel extends CI_Model {
 
     // get user
     public function getUserByID($userID) {
-        $this->db->select('Username, JoinDate, ReputationPoints');  // Specify the columns you want
+        $this->db->select('Username, JoinDate, ReputationPoints'); 
         $query = $this->db->get_where('Users', array('UserID' => $userID));
-        return $query->row_array();  // Returns the user data as an associative array
+        return $query->row_array(); 
     }
     
 

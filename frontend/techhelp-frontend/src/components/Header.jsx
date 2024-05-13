@@ -11,7 +11,7 @@ export default function Header() {
             <nav>
                 <Link to={'/'} className='nav-link nav-index'>TechHelp</Link>
                 <div className="nav-right">
-                    <Link to={'/'} className='nav-link'>Browse</Link>
+                    <Link to={'/browse'} className='nav-link'>Browse</Link>
                     <Link to={'/'} className='nav-link'>Search</Link>
                     {user ? (
                         <button>

@@ -10,6 +10,7 @@ import Profile from './pages/Profile'
 import PrivateRoute from './components/PrivateRoute'
 import { AuthProvider } from './context/AuthContext'
 import { UserProvider } from './context/UserProvider'
+import Browse from './pages/Browse'
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path='/' element={<Layout />}>
@@ -17,6 +18,7 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path='sign-in' element={<SignIn />} />
     <Route path='register' element={<Register />} />
     <Route path='profile/:id' element={<Profile />} />
+    <Route path='browse' element={<Browse />} />
   </Route>
 ))
 
