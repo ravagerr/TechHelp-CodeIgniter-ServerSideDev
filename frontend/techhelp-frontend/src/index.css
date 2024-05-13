@@ -1,0 +1,46 @@
+body {
+    margin: 0;
+}
+
+/* Nav styles */
+
+header {
+    padding: 2em 0;
+    border-bottom: 1px solid grey;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 0 0.5em;
+}
+
+.nav-right {
+    display: flex;
+    gap: 1em;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: black;
+}
+
+.nav-index {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+/* Footer styles */
+
+footer {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.footer-items {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid grey;
+}
