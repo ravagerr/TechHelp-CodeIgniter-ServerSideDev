@@ -54,6 +54,17 @@ CREATE TABLE `Subscriptions` (
   `QuestionSlug` VARCHAR(255)
 );
 
+CREATE TABLE `Votes` (
+  `VoteID` INT PRIMARY KEY AUTO_INCREMENT,
+  `UserID` INT,
+  `ContentType` ENUM('question', 'answer'),
+  `ContentID` INT,
+  `VoteType` ENUM('upvote', 'downvote'),
+  `VoteDate` DATETIME NOT NULL,
+  UNIQUE KEY `unique_vote` (`UserID`, `ContentType`, `ContentID`),
+  FOREIGN KEY (`UserID`) REFERENCES `Users`(`UserID`)
+);
+
 ALTER TABLE `Subscriptions` ADD FOREIGN KEY (`UserID`) REFERENCES `Users` (`UserID`);
 
 ALTER TABLE `Subscriptions` ADD FOREIGN KEY (`QuestionSlug`) REFERENCES `Questions` (`QuestionSlug`);
