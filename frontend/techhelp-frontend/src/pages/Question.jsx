@@ -8,23 +8,25 @@ export default function Question() {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
     const { user } = useUser()
+    const [step, setStep] = useState(0)
+    const [reply, setReply] = useState('')
+
+    const fetchQuestion = async () => {
+        try {
+            const response = await fetch(`http://localhost:6900/index.php/api/questions/${slug}`)
+            if (!response.ok) {
+                throw new Error('Question not found')
+            }
+            const data = await response.json()
+            setQuestion(data)
+        } catch (error) {
+            setError(error.message)
+        } finally {
+            setLoading(false)
+        }
+    }
 
     useEffect(() => {
-        const fetchQuestion = async () => {
-            try {
-                const response = await fetch(`http://localhost:6900/index.php/api/questions/${slug}`)
-                if (!response.ok) {
-                    throw new Error('Question not found')
-                }
-                const data = await response.json()
-                setQuestion(data)
-            } catch (error) {
-                setError(error.message)
-            } finally {
-                setLoading(false)
-            }
-        }
-
         fetchQuestion()
     }, [slug])
 
@@ -49,27 +51,43 @@ export default function Question() {
             })
 
             if (response.ok) {
-                if (contentType === 'question') {
-                    setQuestion(prev => ({
-                        ...prev,
-                        Upvotes: prev.Upvotes + (voteType === 'upvote' ? 1 : 0),
-                        Downvotes: prev.Downvotes + (voteType === 'downvote' ? 1 : 0)
-                    }))
-                } else if (contentType === 'answer') {
-                    setQuestion(prev => ({
-                        ...prev,
-                        answers: prev.answers.map(answer => answer.AnswerID === contentId ? {
-                            ...answer,
-                            Upvotes: answer.Upvotes + (voteType === 'upvote' ? 1 : 0),
-                            Downvotes: answer.Downvotes + (voteType === 'downvote' ? 1 : 0)
-                        } : answer)
-                    }))
-                }
+                fetchQuestion()  // refetch question data after voting
             } else {
                 console.error('Failed to vote', await response.json())
             }
         } catch (error) {
             console.error('Failed to vote', error)
+        }
+    }
+console.log(question)
+    const handleReplySubmit = async () => {
+        if (!user) {
+            console.error('User not logged in')
+            return
+        }
+
+        try {
+            const response = await fetch(`http://localhost:6900/index.php/api/reply`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    user_id: user.id,
+                    question_id: question.QuestionSlug,
+                    body: reply
+                })
+            })
+
+            if (response.ok) {
+                setReply('')
+                setStep(0)
+                fetchQuestion()  // refetch question data after replying
+            } else {
+                console.log("Error occured")
+            } 
+        } catch (error) {
+            console.error('Failed to submit reply', error)
         }
     }
 
@@ -93,13 +111,25 @@ export default function Question() {
             <small>Posted: {new Date(question.PostDate).toLocaleDateString()}</small>
             <div className="question-vote-container">
                 <button className='upvote-btn vote-btn' onClick={() => handleVote('question', question.QuestionSlug, 'upvote')}>
-                    <img src="../src/assets/arrow-top-circle.svg" alt="" />
+                    <img src="../src/assets/arrow-top-circle.svg" alt="Upvote" />
                 </button>
                 <p>{question.Upvotes}</p>
                 <button className='downvote-btn vote-btn' onClick={() => handleVote('question', question.QuestionSlug, 'downvote')}>
-                    <img src="../src/assets/arrow-bottom-circle.svg" alt="" />
+                    <img src="../src/assets/arrow-bottom-circle.svg" alt="Downvote" />
                 </button>
                 <p>{question.Downvotes}</p>
+                {step === 0 ? (
+                <button className='question-reply-btn' onClick={() => setStep(1)}>Reply</button>
+            ) : (
+                <div>
+                    <textarea
+                        value={reply}
+                        onChange={(e) => setReply(e.target.value)}
+                        placeholder="Write your reply..."
+                    />
+                    <button onClick={handleReplySubmit}>Submit</button>
+                </div>
+            )}
             </div>
         </div>
 
@@ -115,11 +145,11 @@ export default function Question() {
                         <small>Posted: {new Date(answer.PostDate).toLocaleDateString()}</small>
                         <div className="question-vote-container">
                             <button className='upvote-btn vote-btn' onClick={() => handleVote('answer', answer.AnswerID, 'upvote')}>
-                                <img src="../src/assets/arrow-top-circle.svg" alt="" />
+                                <img src="../src/assets/arrow-top-circle.svg" alt="Upvote" />
                             </button>
                             <p>{answer.Upvotes}</p>
                             <button className='downvote-btn vote-btn' onClick={() => handleVote('answer', answer.AnswerID, 'downvote')}>
-                                <img src="../src/assets/arrow-bottom-circle.svg" alt="" />
+                                <img src="../src/assets/arrow-bottom-circle.svg" alt="Downvote" />
                             </button>
                             <p>{answer.Downvotes}</p>
                         </div>

@@ -92,6 +92,33 @@ class QuestionController extends CI_Controller {
         } else {
             $this->output->set_status_header(400)->set_output(json_encode(['error' => 'Invalid data or you have already voted']));
         }
-    }           
+    }         
+    
+    public function reply() {
+        try {
+            $input = json_decode(file_get_contents('php://input'), true);
+    
+            $replyData = [
+                'user_id' => isset($input['user_id']) ? $input['user_id'] : '',
+                'question_id' => isset($input['question_id']) ? $input['question_id'] : '',
+                'body' => isset($input['body']) ? $input['body'] : ''
+            ];
+    
+            if ($replyData['user_id'] && $replyData['question_id'] && $replyData['body']) {
+                $replyId = $this->QuestionModel->createReply($replyData);
+                if ($replyId !== false) {
+                    $this->output->set_status_header(201)->set_output(json_encode(['message' => 'Reply created successfully', 'reply_id' => $replyId]));
+                } else {
+                    throw new Exception('Failed to create reply');
+                }
+            } else {
+                throw new Exception('Invalid data');
+            }
+        } catch (Exception $e) {
+            log_message('error', 'Error in reply method: ' . $e->getMessage());
+            $this->output->set_status_header(500)->set_output(json_encode(['error' => $e->getMessage()]));
+        }
+    }
+    
 }
 ?>

@@ -129,6 +129,35 @@ class QuestionModel extends CI_Model {
         $this->db->update('Users');
     
         return true;
-    }    
+    }  
+    
+    public function createReply($data) {
+        try {
+            $replyData = [
+                'QuestionSlug' => $data['question_id'],
+                'UserID' => $data['user_id'],
+                'Body' => $data['body'],
+                'PostDate' => date('Y-m-d H:i:s')
+            ];
+    
+            $this->db->insert('Answers', $replyData);
+    
+            // Check if the insert was successful
+            if ($this->db->affected_rows() > 0) {
+                // Update the reputation points for the user
+                $this->db->where('UserID', $data['user_id']);
+                $this->db->set('ReputationPoints', 'ReputationPoints+1', FALSE);
+                $this->db->update('Users');
+    
+                return $this->db->insert_id();
+            } else {
+                throw new Exception('Failed to insert reply');
+            }
+        } catch (Exception $e) {
+            log_message('error', 'Error in createReply: ' . $e->getMessage());
+            return false;
+        }
+    }
+    
 }
 ?>

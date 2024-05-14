@@ -133,3 +133,17 @@ footer {
 .question-answer-container {
     border-bottom: 2px solid grey;
 }
+
+.question-reply-btn {
+    display: block;
+    margin-left: 1em;
+    padding: 0.5em 1em;
+    font-size: 1em;
+    border: none;
+}
+
+.question-reply-btn:hover {
+    background-color: grey;
+    color: white;
+    cursor: pointer;
+}
