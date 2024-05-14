@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export default function Browse() {
     const [questions, setQuestions] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchQuestions = async () => {
@@ -28,24 +30,26 @@ export default function Browse() {
 
     if (loading) return <div>Loading...</div>
     if (error) return <div>Error: {error}</div>
-
+console.log(questions)
     return (
         <div>
             <h1>Browse Questions</h1>
             {questions.length > 0 ? (
-                <ul>
+                <div>
                     {questions.map(question => (
-                        <li key={question.QuestionSlug}>
-                            <h2>{question.Title}</h2>
+                        <div key={question.QuestionSlug}>
+                            <h2>
+                                <Link className='browse-link' to={`/question/${question.QuestionSlug}`}>{question.Title}</Link>
+                            </h2>
                             <p>{question.Body}</p>
                             <p>in {question.TagName} by <Link to={`/profile/${question.UserID}`}>{question.Username}</Link></p>
                             <small>Posted: {new Date(question.PostDate).toLocaleDateString()}</small>
-                        </li>
+                        </div>
                     ))}
-                </ul>
+                </div>
             ) : (
                 <p>No questions found.</p>
             )}
         </div>
-    )
-}
+    );
+};

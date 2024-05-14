@@ -11,6 +11,7 @@ import PrivateRoute from './components/PrivateRoute'
 import { AuthProvider } from './context/AuthContext'
 import { UserProvider } from './context/UserProvider'
 import Browse from './pages/Browse'
+import Question from './pages/Question'
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path='/' element={<Layout />}>
@@ -19,6 +20,7 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path='register' element={<Register />} />
     <Route path='profile/:id' element={<Profile />} />
     <Route path='browse' element={<Browse />} />
+    <Route path='question/:slug' element={<Question />} />
   </Route>
 ))
 

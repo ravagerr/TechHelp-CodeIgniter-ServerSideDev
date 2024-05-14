@@ -63,3 +63,4 @@ $route['api/questions'] = 'QuestionController/index';                  // GET: F
 $route['api/questions/(:any)'] = 'QuestionController/view/$1';        // GET: Fetch a single question by slug
 $route['api/questions/create'] = 'QuestionController/create';         // POST: Create a new question
 $route['api/questions/delete/(:any)'] = 'QuestionController/delete/$1';  // DELETE: Delete a question by slug
+$route['api/vote'] = 'QuestionController/vote';

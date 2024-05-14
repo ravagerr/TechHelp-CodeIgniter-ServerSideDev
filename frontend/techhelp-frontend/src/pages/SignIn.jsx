@@ -66,7 +66,7 @@ export default function SignIn() {
                     <input type="password" name="password" value={password} placeholder="Password" onChange={handleChange} required /> <br />
                 <button type="submit">Log In</button>
             </form>
-            {/* <button onClick={checkSession}>Check Session</button> */}
+            <button onClick={checkSession}>Check Session</button>
         </div>
     )
 }

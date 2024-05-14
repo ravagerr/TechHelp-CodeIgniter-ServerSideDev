@@ -9,6 +9,7 @@ body {
 main {
     max-width: 1200px;
     margin: 2em auto;
+    padding: 0 0.5em;
 }
 
 /* Nav styles */
@@ -52,6 +53,7 @@ nav {
 footer {
     max-width: 900px;
     margin: 0 auto;
+    padding: 0 0.5em;
 }
 
 .footer-items {
@@ -84,4 +86,50 @@ footer {
     border: 1px solid grey;
     padding: 1em 0.5em;
     background-color: rgb(240, 240, 240);
+}
+
+/* Browse page */
+
+.browse-link {
+    cursor: pointer;
+    text-decoration: none;
+    color: rgb(76, 76, 248);
+}
+
+.browse-link:hover {
+    text-decoration: underline;
+}
+
+/* Question styles */
+
+.question-user-section-container {
+    display: flex;
+}
+
+.question-user-section-container img {
+    width: 100%;
+    max-width: 50px;
+    object-fit: contain;
+}
+
+.vote-btn {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.question-vote-container {
+    display: flex;
+    align-items: center;
+    font-size: 1.2em;
+}
+
+.vote-btn:hover {
+    scale: 1.2;
+    transition: 0.2s;
+}
+
+.question-answer-container {
+    border-bottom: 2px solid grey;
 }

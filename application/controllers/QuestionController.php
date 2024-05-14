@@ -7,10 +7,19 @@ class QuestionController extends CI_Controller {
         parent::__construct();
         $this->load->model('QuestionModel');
         $this->load->helper('url');
-        // Load the library to handle HTTP requests more effectively
-        $this->load->library('form_validation');
         // Set the response header to JSON
         $this->output->set_content_type('application/json');
+
+        header("Access-Control-Allow-Origin: http://localhost:5173");
+        header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+        header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, Credentials");
+        header("Access-Control-Allow-Credentials: true");
+
+        // handle pre-flight requests
+        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            header('HTTP/1.1 200 OK');
+            exit();
+        }
     }
 
     // Display all questions
@@ -67,5 +76,22 @@ class QuestionController extends CI_Controller {
             $this->output->set_status_header(500)->set_output(json_encode(['error' => 'Failed to delete question']));
         }
     }
+
+    public function vote() {
+        $input = json_decode(file_get_contents('php://input'), true);
+    
+        $userId = isset($input['user_id']) ? $input['user_id'] : '';
+        $contentType = isset($input['content_type']) ? $input['content_type'] : '';
+        $contentId = isset($input['content_id']) ? $input['content_id'] : '';
+        $voteType = isset($input['vote_type']) ? $input['vote_type'] : '';
+    
+        log_message('debug', 'Received data: userId=' . $userId . ', contentType=' . $contentType . ', contentId=' . $contentId . ', voteType=' . $voteType);
+    
+        if ($userId && $contentType && $contentId && $voteType && $this->QuestionModel->vote($userId, $contentType, $contentId, $voteType)) {
+            $this->output->set_status_header(200)->set_output(json_encode(['message' => ucfirst($voteType) . ' recorded successfully']));
+        } else {
+            $this->output->set_status_header(400)->set_output(json_encode(['error' => 'Invalid data or you have already voted']));
+        }
+    }           
 }
 ?>
