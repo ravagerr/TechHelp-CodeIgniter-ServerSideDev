@@ -65,3 +65,4 @@ $route['api/questions/create'] = 'QuestionController/create';         // POST: C
 $route['api/questions/delete/(:any)'] = 'QuestionController/delete/$1';  // DELETE: Delete a question by slug
 $route['api/vote'] = 'QuestionController/vote';
 $route['api/reply'] = 'QuestionController/reply';
+$route['api/questions/tag/(:any)'] = 'QuestionController/getQuestionsByTag/$1';

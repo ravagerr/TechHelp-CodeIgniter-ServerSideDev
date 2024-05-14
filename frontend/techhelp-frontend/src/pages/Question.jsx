@@ -121,13 +121,13 @@ console.log(question)
                 {step === 0 ? (
                 <button className='question-reply-btn' onClick={() => setStep(1)}>Reply</button>
             ) : (
-                <div>
-                    <textarea
+                <div className='question-reply-container'>
+                    <textarea className='question-reply-textarea' rows="10" cols="50"
                         value={reply}
                         onChange={(e) => setReply(e.target.value)}
                         placeholder="Write your reply..."
                     />
-                    <button onClick={handleReplySubmit}>Submit</button>
+                    <button className="question-reply-btn" onClick={handleReplySubmit}>Submit</button>
                 </div>
             )}
             </div>

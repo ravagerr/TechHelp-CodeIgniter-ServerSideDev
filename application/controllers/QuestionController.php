@@ -68,6 +68,11 @@ class QuestionController extends CI_Controller {
         }
     }
 
+    public function getQuestionsByTag($tagName) {
+        $questions = $this->QuestionModel->getAllQuestionsByTag($tagName);
+        $this->output->set_output(json_encode($questions));
+    }
+
     // Delete a question
     public function delete($slug) {
         if ($this->QuestionModel->deleteQuestion($slug)) {

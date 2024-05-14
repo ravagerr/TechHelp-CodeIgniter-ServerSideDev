@@ -49,13 +49,15 @@ class QuestionModel extends CI_Model {
 
     // Get all questions by tag
     public function getAllQuestionsByTag($tagName) {
-        $this->db->select('Questions.*');
+        $this->db->select('Questions.*, Tags.TagName, Users.Username');
         $this->db->from('Questions');
-        $this->db->join('QuestionTags', 'Questions.QuestionSlug = QuestionTags.QuestionSlug');
-        $this->db->join('Tags', 'QuestionTags.TagID = Tags.TagID');
+        $this->db->join('QuestionTags', 'Questions.QuestionSlug = QuestionTags.QuestionSlug', 'left');
+        $this->db->join('Tags', 'QuestionTags.TagID = Tags.TagID', 'left');
+        $this->db->join('Users', 'Questions.UserID = Users.UserID', 'left');
         $this->db->where('Tags.TagName', $tagName);
+        $this->db->order_by('Questions.PostDate', 'DESC');
         $query = $this->db->get();
-        return $query->result_array();
+        return $query->result_array(); // returns an array of objects
     }
 
     // Create a new question

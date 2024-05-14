@@ -9,7 +9,8 @@ export function useUser() {
 
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null)
-
+   // http://localhost:6900/index.php/usercontroller/checkSession
+   // https://w1855005.users.ecs.westminster.ac.uk/advanced-server-side/index.php/usercontroller/checkSession
     useEffect(() => {
         // Fetch the session data when the component mounts
         fetch('http://localhost:6900/index.php/usercontroller/checkSession', {

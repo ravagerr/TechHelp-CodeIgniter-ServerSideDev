@@ -12,6 +12,7 @@ import { AuthProvider } from './context/AuthContext'
 import { UserProvider } from './context/UserProvider'
 import Browse from './pages/Browse'
 import Question from './pages/Question'
+import BrowseByTag from './pages/BrowseByTag'
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path='/' element={<Layout />}>
@@ -21,6 +22,7 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path='profile/:id' element={<Profile />} />
     <Route path='browse' element={<Browse />} />
     <Route path='question/:slug' element={<Question />} />
+    <Route path="/questions/tag/:tagName" element={<BrowseByTag />} />
   </Route>
 ))
 
