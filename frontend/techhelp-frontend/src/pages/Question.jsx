@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useUser } from '../context/UserProvider'
 
 export default function Question() {
@@ -10,6 +10,7 @@ export default function Question() {
     const { user } = useUser()
     const [step, setStep] = useState(0)
     const [reply, setReply] = useState('')
+    const navigate = useNavigate()
 
     const fetchQuestion = async () => {
         try {
@@ -59,7 +60,7 @@ export default function Question() {
             console.error('Failed to vote', error)
         }
     }
-console.log(question)
+
     const handleReplySubmit = async () => {
         if (!user) {
             console.error('User not logged in')
@@ -84,7 +85,7 @@ console.log(question)
                 setStep(0)
                 fetchQuestion()  // refetch question data after replying
             } else {
-                console.log("Error occured")
+                console.log("Error occurred")
             } 
         } catch (error) {
             console.error('Failed to submit reply', error)
@@ -118,17 +119,21 @@ console.log(question)
                     <img src="../src/assets/arrow-bottom-circle.svg" alt="Downvote" />
                 </button>
                 <p>{question.Downvotes}</p>
-                {step === 0 ? (
-                <button className='question-reply-btn' onClick={() => setStep(1)}>Reply</button>
+                {user ? (
+                step === 0 ? (
+                    <button className='question-reply-btn' onClick={() => setStep(1)}>Reply</button>
+                ) : (
+                    <div className='question-reply-container'>
+                        <textarea className='question-reply-textarea' rows="10" cols="50"
+                            value={reply}
+                            onChange={(e) => setReply(e.target.value)}
+                            placeholder="Write your reply..."
+                        />
+                        <button className="question-reply-btn" onClick={handleReplySubmit}>Submit</button>
+                    </div>
+                )
             ) : (
-                <div className='question-reply-container'>
-                    <textarea className='question-reply-textarea' rows="10" cols="50"
-                        value={reply}
-                        onChange={(e) => setReply(e.target.value)}
-                        placeholder="Write your reply..."
-                    />
-                    <button className="question-reply-btn" onClick={handleReplySubmit}>Submit</button>
-                </div>
+                <button className='question-reply-btn' onClick={() => navigate('/sign-in')}>Sign In</button>
             )}
             </div>
         </div>
