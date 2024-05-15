@@ -49,7 +49,9 @@ export default function Profile() {
             <h1><b>{profileData.Username}</b> | <span style={{fontWeight: 'normal'}}>{profileData.ReputationPoints} points</span></h1>
           </div>
           <p><b>Member Since: </b> {profileData.JoinDate}</p>
-          <button onClick={handleLogout}>Logout</button>
+          {user && user.id === params.id && (
+            <button className='logout-btn' onClick={handleLogout}>Logout</button>
+          )}
         </div>
       ) : (
         <p>Loading profile...</p>
