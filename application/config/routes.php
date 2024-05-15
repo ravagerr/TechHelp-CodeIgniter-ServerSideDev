@@ -58,6 +58,7 @@ $route['api/register'] = 'usercontroller/register';
 $route['api/login'] = 'usercontroller/login';
 $route['api/get_user/(:num)'] = 'usercontroller/getUser/$1';
 $route['api/checkSession'] = 'usercontroller/checkSession';
+$route['logout'] = 'UserController/logout';
 
 $route['api/questions'] = 'QuestionController/index';                  // GET: Fetch all questions
 $route['api/questions/(:any)'] = 'QuestionController/view/$1';        // GET: Fetch a single question by slug

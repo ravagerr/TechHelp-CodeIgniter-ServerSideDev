@@ -285,3 +285,13 @@ footer {
 .question-reply-textarea {
     font-family: 'Inter', 'sans-serif';
 }
+
+/* Profile styles */
+.question-user-section-container.profile img{
+    max-width: 100px;
+}
+
+.question-user-section-container.profile {
+    padding-bottom: 1em;
+    border-bottom: 2px solid grey;
+}

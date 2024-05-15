@@ -107,4 +107,9 @@ class UserController extends CI_Controller {
             ]));
         }
     }
+
+    public function logout() {
+        $this->session->sess_destroy();
+        $this->output->set_status_header(200)->set_output(json_encode(['message' => 'Logged out successfully']));
+    }
 }
