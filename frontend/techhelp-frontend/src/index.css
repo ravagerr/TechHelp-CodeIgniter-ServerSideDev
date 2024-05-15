@@ -102,10 +102,17 @@ footer {
 }
 
 .home-category-boxes {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     justify-content: center;
-    gap: 2em;
+    width: fit-content;
+    gap: 1em;
     margin: 0 auto;
+}
+
+.home-category-box {
+    width: fit-content;
+    justify-self: center;
 }
 
 .home-category-box a {
@@ -120,6 +127,64 @@ footer {
     max-width: 200px;
     height: 100%;
     object-fit: cover;
+}
+
+.latest-tips-body {
+    text-align: center;
+}
+
+.home-new-container {
+    margin: 4em auto;
+    text-align: center;
+}
+
+.home-new-container h1 {
+    margin-top: 0;
+}
+
+.latest-tips-box-container {
+    margin-top: 2em;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+}
+
+.latest-tips-boxes {
+    display: flex;
+    justify-content: center;
+}
+
+.latest-tips-left img {
+    max-width: 200px;
+}
+
+.latest-tips-right {
+    width: 50%;
+    text-align: left;
+}
+
+.latest-tips-right a {
+    text-decoration: none;
+}
+
+.home-browse-link, .profile-link {
+    color: black;
+}
+
+.home-browse-link:hover {
+    text-decoration: none;
+}
+
+.profile-link {
+    font-weight: bold;
+}
+
+.profile-link:hover {
+    text-decoration: underline;
+}
+
+.read-full-post-link:hover {
+    text-decoration: underline;
 }
 
 /* Auth form Register, Sign in Styling */
