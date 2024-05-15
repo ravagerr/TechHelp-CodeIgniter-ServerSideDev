@@ -62,8 +62,31 @@ class QuestionModel extends CI_Model {
 
     // Create a new question
     public function createQuestion($data) {
-        return $this->db->insert('Questions', $data);
+        log_message('debug', 'Inserting question: ' . json_encode($data));
+        $result = $this->db->insert('Questions', $data);
+        if ($result) {
+            log_message('debug', 'Question inserted successfully');
+        } else {
+            log_message('error', 'Failed to insert question');
+        }
+        return $result;
     }
+    
+    public function addQuestionTag($questionSlug, $tagID) {
+        $data = [
+            'QuestionSlug' => $questionSlug,
+            'TagID' => $tagID
+        ];
+        log_message('debug', 'Inserting question tag: ' . json_encode($data));
+        $result = $this->db->insert('QuestionTags', $data);
+        if ($result) {
+            log_message('debug', 'Question tag inserted successfully');
+        } else {
+            log_message('error', 'Failed to insert question tag');
+        }
+        return $result;
+    }
+    
 
     // Delete a question
     public function deleteQuestion($slug) {

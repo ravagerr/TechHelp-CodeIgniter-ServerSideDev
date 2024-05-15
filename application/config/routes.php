@@ -52,18 +52,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
-$route['api/get_data'] = 'api/get_data';
 
+$route['api/get_data'] = 'api/get_data';
 $route['api/register'] = 'usercontroller/register';
 $route['api/login'] = 'usercontroller/login';
 $route['api/get_user/(:num)'] = 'usercontroller/getUser/$1';
 $route['api/checkSession'] = 'usercontroller/checkSession';
 $route['logout'] = 'UserController/logout';
 
-$route['api/questions'] = 'QuestionController/index';                  // GET: Fetch all questions
-$route['api/questions/(:any)'] = 'QuestionController/view/$1';        // GET: Fetch a single question by slug
+// Specific routes first
 $route['api/questions/create'] = 'QuestionController/create';         // POST: Create a new question
 $route['api/questions/delete/(:any)'] = 'QuestionController/delete/$1';  // DELETE: Delete a question by slug
+$route['api/questions/tag/(:any)'] = 'QuestionController/getQuestionsByTag/$1';
 $route['api/vote'] = 'QuestionController/vote';
 $route['api/reply'] = 'QuestionController/reply';
-$route['api/questions/tag/(:any)'] = 'QuestionController/getQuestionsByTag/$1';
+
+// General routes last
+$route['api/questions'] = 'QuestionController/index';                  // GET: Fetch all questions
+$route['api/questions/(:any)'] = 'QuestionController/view/$1';        // GET: Fetch a single question by slug
+

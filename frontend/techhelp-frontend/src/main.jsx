@@ -13,6 +13,7 @@ import Question from './pages/Question'
 import BrowseByTag from './pages/BrowseByTag'
 import SearchResults from './pages/SearchResults'
 import ProtectedRoute from './components/ProtectedRoute'
+import CreateQuestion from './pages/CreateQuestion'
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path='/' element={<Layout />}>
@@ -33,6 +34,7 @@ const router = createBrowserRouter(createRoutesFromElements(
               </ProtectedRoute>
           } 
       />
+    <Route path="/create-question" element={<CreateQuestion />} />
     <Route path='profile/:id' element={<Profile />} />
     <Route path='browse' element={<Browse />} />
     <Route path='question/:slug' element={<Question />} />
