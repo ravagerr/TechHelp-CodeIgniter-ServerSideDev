@@ -105,7 +105,7 @@ export default function Question() {
         <div className='question-answer-container'>
             <div className="question-user-section-container">
                 <img src="../src/assets/user_avatar.png" alt="Avatar" />
-                <p><b>{question.Username}</b> | 123 points</p>
+                <p><b>{question.Username}</b> | {question.ReputationPoints} points</p>
             </div>
             <h1>{question.Title}</h1>
             <p>{question.Body}</p>
@@ -144,7 +144,7 @@ export default function Question() {
                     <div key={answer.AnswerID} className='question-answer-container'>
                         <div className="question-user-section-container">
                             <img src="../src/assets/user_avatar.png" alt="Avatar" />
-                            <p><b>{answer.Username}</b></p>
+                            <p><b>{answer.Username}</b> | {answer.ReputationPoints} points</p>
                         </div>
                         <p>{answer.Body}</p>
                         <small>Posted: {new Date(answer.PostDate).toLocaleDateString()}</small>

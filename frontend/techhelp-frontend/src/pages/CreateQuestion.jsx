@@ -30,7 +30,7 @@ export default function CreateQuestion() {
                 }),
                 credentials: 'include'
             });
-            console.log(response)
+
             if (response.ok) {
                 navigate('/browse');
             } else {
@@ -44,10 +44,10 @@ export default function CreateQuestion() {
 
     return (
         <div>
+            <h1>Create a Question</h1>
             {user ? (
-                <form onSubmit={handleCreateQuestion}>
-                    <h1>Create a Question</h1>
-                    <div>
+                <form onSubmit={handleCreateQuestion} className='create-form'>
+                    <div className='create-form-input-container'>
                         <label>Title</label>
                         <input
                             type="text"
@@ -56,18 +56,18 @@ export default function CreateQuestion() {
                             required
                         />
                     </div>
-                    <div>
+                    <div className='create-form-input-container'>
                         <label>Body</label>
-                        <textarea
+                        <textarea rows="10" cols="100"
                             value={body}
                             onChange={(e) => setBody(e.target.value)}
                             required
                         />
                     </div>
-                    <div>
+                    <div className='create-form-input-container'>
                         <label>Category</label>
                         <select value={tag} onChange={(e) => setTag(e.target.value)} required>
-                            <option value="">Select a category</option>
+                            <option value="">Select a category </option>
                             <option value="2">Laptops</option>
                             <option value="3">Phones</option>
                             <option value="4">Tablets</option>

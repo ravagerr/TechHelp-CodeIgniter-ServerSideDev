@@ -12,7 +12,7 @@ export default function Header() {
                 <Link to={'/'} className='nav-link nav-index'>TechHelp</Link>
                 <div className="nav-right">
                     <Link to={'/browse'} className='nav-link'>Browse</Link>
-                    <Link to={'/'} className='nav-link'>Search</Link>
+                    <Link to={'/create-question'} className='nav-link'>Create</Link>
                     {user ? (
                             <Link to={`/profile/${user.id}`} className='nav-link button-user'>Profile</Link>
                     ) : (

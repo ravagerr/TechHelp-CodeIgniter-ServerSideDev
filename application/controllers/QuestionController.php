@@ -66,7 +66,7 @@ class QuestionController extends CI_Controller {
     
             // Prepare the data for the question
             $postData = [
-                'QuestionSlug' => url_title($input['title'], 'dash', TRUE),
+                'QuestionSlug' => url_title($input['title']),
                 'UserID' => $userId,
                 'Title' => $input['title'],
                 'Body' => $input['body'],

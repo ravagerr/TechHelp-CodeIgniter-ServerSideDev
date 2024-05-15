@@ -10,27 +10,27 @@ class QuestionModel extends CI_Model {
     // Get a single question by slug along with its answers
     public function getQuestionBySlug($slug) {
         // First, get the question details
-        $this->db->select('Questions.*, Users.Username');
+        $this->db->select('Questions.*, Users.Username, Users.ReputationPoints');
         $this->db->from('Questions');
         $this->db->join('Users', 'Questions.UserID = Users.UserID', 'left');
         $this->db->where('Questions.QuestionSlug', $slug);
         $questionQuery = $this->db->get();
         $question = $questionQuery->row(); // returns a single row object
-
+    
         if ($question) {
             // Next, get the answers for this question
-            $this->db->select('Answers.*, Users.Username');
+            $this->db->select('Answers.*, Users.Username, Users.ReputationPoints');
             $this->db->from('Answers');
             $this->db->join('Users', 'Answers.UserID = Users.UserID', 'left');
             $this->db->where('Answers.QuestionSlug', $slug);
             $this->db->order_by('Answers.PostDate', 'ASC');
             $answersQuery = $this->db->get();
             $answers = $answersQuery->result_array(); // returns an array of objects
-
+    
             // Add the answers to the question object
             $question->answers = $answers;
         }
-
+    
         return $question;
     }
 
