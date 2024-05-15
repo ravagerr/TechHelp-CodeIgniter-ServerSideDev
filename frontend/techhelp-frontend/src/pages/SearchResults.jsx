@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
-export default function Browse() {
+export default function SearchResults() {
     const [questions, setQuestions] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
-    const navigate = useNavigate()
+    const location = useLocation()
+
+    const query = new URLSearchParams(location.search).get('query')
 
     useEffect(() => {
         const fetchQuestions = async () => {
@@ -16,8 +17,10 @@ export default function Browse() {
                     throw new Error('Network response was not ok: ' + response.statusText)
                 }
                 const data = await response.json()
-                console.log(data)
-                setQuestions(data)
+                const filteredQuestions = data.filter(question =>
+                    question.Title.toLowerCase().includes(query.toLowerCase())
+                )
+                setQuestions(filteredQuestions)
                 setLoading(false)
             } catch (error) {
                 setError(error.message)
@@ -26,14 +29,14 @@ export default function Browse() {
         }
 
         fetchQuestions()
-    }, [])
+    }, [query])
 
     if (loading) return <div>Loading...</div>
     if (error) return <div>Error: {error}</div>
-console.log(questions)
+
     return (
         <div>
-            <h1>Browse Questions</h1>
+            <h1>Search Results for "{query}"</h1>
             {questions.length > 0 ? (
                 <div>
                     {questions.map(question => (
@@ -51,5 +54,5 @@ console.log(questions)
                 <p>No questions found.</p>
             )}
         </div>
-    );
-};
+    )
+}

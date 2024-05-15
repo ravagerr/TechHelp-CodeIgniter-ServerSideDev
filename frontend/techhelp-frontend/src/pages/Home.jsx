@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Home() {
     const [questions, setQuestions] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchQuestions = async () => {
@@ -14,7 +16,7 @@ export default function Home() {
                     throw new Error('Network response was not ok: ' + response.statusText);
                 }
                 const data = await response.json();
-                setQuestions(data.slice(0, 4)); // Limit results to a maximum of four
+                setQuestions(data); // Fetch all questions
                 setLoading(false);
             } catch (error) {
                 setError(error.message);
@@ -25,6 +27,10 @@ export default function Home() {
         fetchQuestions();
     }, []);
 
+    const handleSearch = () => {
+        navigate(`/search?query=${searchTerm}`);
+    };
+
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
@@ -34,9 +40,15 @@ export default function Home() {
                 <h1 className="home-hero-title">TechHelp Community</h1>
                 <p className="home-hero-subtitle">Some default text to fill some space, and something more so there is more text</p>
 
-                <input placeholder="Search" type="text" />
+                <input
+                    placeholder="Search"
+                    type="text"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <button onClick={handleSearch}>Search</button>
 
-                <Link className='home-hero-link' to='/'>Learn more about the TechHelp Community</Link>
+                <Link className='home-hero-link' to='/'>Learn more about the TechHelp Community &gt;</Link>
 
                 <img src="./public/img/home-hero-img.jpeg" alt="" className="home-hero-img" />
             </div>
@@ -72,15 +84,13 @@ export default function Home() {
                     <h1 className="latest-tips-title">Latest Tips</h1>
                     <p className="latest-tips-subtitle">Get insights from experienced community members.</p>
 
-                    <Link to='/browse'>See all tips</Link>
+                    <Link to='/browse'>See all tips &gt;</Link>
 
-                    {/* Map over questions here */}
                     <div className='latest-tips-box-container'>
-                        {questions.map(question => (
-                            <>
-                            <div className='latest-tips-boxes'>
-                                <div className='latest-tips-left' key={question.QuestionSlug}>
-                                <img src="./public/img/user_avatar.png" alt="" />
+                        {questions.slice(0, 4).map(question => (
+                            <div className='latest-tips-boxes' key={question.QuestionSlug}>
+                                <div className='latest-tips-left'>
+                                    <img src="./public/img/user_avatar.png" alt="" />
                                 </div>
                                 <div className="latest-tips-right">
                                     <h2>
@@ -88,10 +98,9 @@ export default function Home() {
                                     </h2>
                                     <p>{question.Body}</p>
                                     <p><Link className='profile-link' to={`/profile/${question.UserID}`}>{question.Username}</Link> | {question.ReputationPoints} points</p>
-                                    <Link className='read-full-post-link' to={`/question/${question.QuestionSlug}`}>Read full post ></Link>
+                                    <Link className='read-full-post-link' to={`/question/${question.QuestionSlug}`}>Read full post &gt;</Link>
                                 </div>
                             </div>
-                            </>
                         ))}
                     </div>
                 </div>
